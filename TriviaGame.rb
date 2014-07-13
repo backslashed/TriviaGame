@@ -18,7 +18,7 @@ class TriviaGame
     @tests.shuffle!
     score = 0
     number_of_games.times { |level| score += get_score_for @tests[level] }
-    puts "You scored #{score}/#{SCORE_CORRECT * number_of_games}"
+    STDOUT.puts "You scored #{score}/#{SCORE_CORRECT * number_of_games}"
   end
 
   private

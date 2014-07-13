@@ -16,12 +16,25 @@ describe TriviaGame do
     @game.play(5)
   end
   
-  it "should decrease score when answer is incorrect" do
-    expect(CSV).to receive(:foreach).and_yield(["Q", "A"]).and_yield(["QQ", "AA"])
-    expect(STDIN).to receive(:gets).and_return("AA").twice
+  it "should increase score when answer is incorrect" do
+    expect(CSV).to receive(:foreach).and_yield(["Q", "A"])
     allow_any_instance_of(Array).to receive(:shuffle!).and_return(nil)
 
+    expect(STDIN).to receive(:gets).and_return("a")
+    expect(STDOUT).to receive(:puts).with("You scored 10/10")
+
     @game = TriviaGame.new(nil)
-    @game.play(2)
+    @game.play(1)
+  end
+
+  it "should decrease score when answer is incorrect" do
+    expect(CSV).to receive(:foreach).and_yield(["Q", "A"])
+    allow_any_instance_of(Array).to receive(:shuffle!).and_return(nil)
+
+    expect(STDIN).to receive(:gets).and_return("B")
+    expect(STDOUT).to receive(:puts).with("You scored -5/10")
+
+    @game = TriviaGame.new(nil)
+    @game.play(1)
   end
 end
