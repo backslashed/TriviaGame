@@ -17,7 +17,7 @@ describe TriviaGame do
   end
   
   it "should increase score when answer is incorrect" do
-    expect(CSV).to receive(:foreach).and_yield(["Q", "A"])
+    allow(CSV).to receive(:foreach).and_yield(["Q", "A"])
     allow_any_instance_of(Array).to receive(:shuffle!).and_return(nil)
 
     expect(STDIN).to receive(:gets).and_return("a")
@@ -28,7 +28,7 @@ describe TriviaGame do
   end
 
   it "should decrease score when answer is incorrect" do
-    expect(CSV).to receive(:foreach).and_yield(["Q", "A"])
+    allow(CSV).to receive(:foreach).and_yield(["Q", "A"])
     allow_any_instance_of(Array).to receive(:shuffle!).and_return(nil)
 
     expect(STDIN).to receive(:gets).and_return("B")
