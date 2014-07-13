@@ -4,15 +4,17 @@ require "./TriviaGame"
 describe TriviaGame do
   it "should shuffle tests for new games" do  
     allow(STDIN).to receive(:gets).and_return("AA")
-    @game = TriviaGame.new( "TriviaGame.csv" )
     expect_any_instance_of(Array).to receive(:shuffle!).once
+
+    @game = TriviaGame.new( "TriviaGame.csv" )
     @game.play(3)
   end
   
   it "should get score for number of questions requested" do
     allow(STDIN).to receive(:gets).and_return("AA")
-    @game = TriviaGame.new( "TriviaGame.csv" )
     expect(@game).to receive(:get_score_for).exactly(5).times.and_return(0)
+    
+    @game = TriviaGame.new( "TriviaGame.csv" )
     @game.play(5)
   end
   
