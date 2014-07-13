@@ -13,9 +13,7 @@ class TriviaGame
 
   # Play a round with a given number of tests
   def play(number_of_tests)
-    return if number_of_tests > @tests.size
-    reset_game
-    run_tests(number_of_tests)
+    run_game(number_of_tests) unless number_of_tests > @tests.size
   end
 
   private
@@ -32,7 +30,8 @@ class TriviaGame
   end
 
   # Run given number of tests
-  def run_tests(levels)
+  def run_game(levels)
+    reset_game
     levels.times { |round| ask_question @tests[round] }
     display_score
   end
