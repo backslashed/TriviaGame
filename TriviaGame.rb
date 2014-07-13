@@ -18,10 +18,7 @@ class TriviaGame
     @tests.shuffle!
     score = 0
 
-    number_of_games.times do |level|
-      score += get_score_for @tests[level]
-    end
-
+    number_of_games.times { |level| score += get_score_for @tests[level] }
     puts "You scored #{score}/#{SCORE_CORRECT * number_of_games}"
   end
 
@@ -30,11 +27,10 @@ class TriviaGame
   # Get score based on user input to test
   def get_score_for(test)
     print test[:question] + "\n> "
+    is_answer_correct?( gets, test ) ? SCORE_CORRECT : SCORE_INCORRECT
+  end
 
-    if gets.chomp.downcase == test[:answer].downcase
-      SCORE_CORRECT
-    else
-      SCORE_INCORRECT
-    end
+  def is_answer_correct?(answer, test)
+    answer.chomp.downcase == test[:answer].downcase
   end
 end
