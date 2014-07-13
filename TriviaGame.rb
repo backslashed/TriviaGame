@@ -50,10 +50,6 @@ class TriviaGame
 
   # Display the score to a game
   def display_score
-    if @score >= 0
-      puts "Score: #{@score}!"
-    else
-      puts "You've lost. Try again."
-    end
+    puts @score >= 0 ? "Score: #{@score}!" : "You've lost. Try again."
   end
 end
