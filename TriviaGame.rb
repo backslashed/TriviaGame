@@ -26,7 +26,7 @@ class TriviaGame
   # Get score based on user input to test
   def get_score_for(test)
     print test[:question] + "\n> "
-    is_answer_correct?( gets, test ) ? SCORE_CORRECT : SCORE_INCORRECT
+    is_answer_correct?( STDIN.gets, test ) ? SCORE_CORRECT : SCORE_INCORRECT
   end
 
   def is_answer_correct?(answer, test)
