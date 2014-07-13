@@ -3,6 +3,7 @@ require "csv"
 class TriviaGame
   SCORE_CORRECT = 10
   SCORE_INCORRECT = -5
+  SCORE_MESSAGE = "You scored %d/%d."
 
   # Read CSV file and store tests
   def initialize(file)
@@ -18,7 +19,7 @@ class TriviaGame
     @tests.shuffle!
     score = 0
     number_of_games.times { |level| score += get_score_for @tests[level] }
-    STDOUT.puts "You scored #{score}/#{SCORE_CORRECT * number_of_games}"
+    STDOUT.puts SCORE_MESSAGE % [score, SCORE_CORRECT * number_of_games ]
   end
 
   private
