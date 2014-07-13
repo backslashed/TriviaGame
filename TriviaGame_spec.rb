@@ -24,7 +24,7 @@ describe TriviaGame do
     @game = TriviaGame.new(nil)
 
     expect(STDIN).to receive(:gets).and_return("a")
-    expect(STDOUT).to receive(:puts).with("You scored 10/10")
+    expect(STDOUT).to receive(:puts).with("You scored 10/10.")
     @game.play(1)
   end
 
@@ -34,7 +34,7 @@ describe TriviaGame do
     @game = TriviaGame.new(nil)
     
     expect(STDIN).to receive(:gets).and_return("B")
-    expect(STDOUT).to receive(:puts).with("You scored -5/10")
+    expect(STDOUT).to receive(:puts).with("You scored -5/10.")
     @game.play(1)
   end
 end
