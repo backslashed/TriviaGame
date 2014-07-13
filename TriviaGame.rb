@@ -4,51 +4,37 @@ class TriviaGame
   SCORE_CORRECT = 10
   SCORE_INCORRECT = -5
 
-  public
-
+  # Read CSV file and store tests
   def initialize(file)
     @tests = []
-    CSV.foreach(file) { |line| load_test(line) }
+
+    CSV.foreach(file) do |line| 
+      @tests << { question: line[0], answer: line[1].strip }
+    end
   end
 
-  # Play a round with a given number of tests
-  def play(number_of_tests)
-    run_game(number_of_tests) unless number_of_tests > @tests.size
+  # Start game with given number of levels
+  def play(number_of_games)
+    @tests.shuffle!
+    score = 0
+
+    number_of_games.times do |level|
+      score += get_score_for @tests[level]
+    end
+
+    puts "You scored #{score}/#{SCORE_CORRECT * number_of_games}"
   end
 
   private
 
-  # Load a test from an array
-  def load_test(test)
-    @tests << { question: test[0], answer: test[1].strip }
-  end
-
-  # Shuffle tests and reset score
-  def reset_game
-    @score = 0
-    @tests.shuffle!
-  end
-
-  # Run given number of tests
-  def run_game(levels)
-    reset_game
-    levels.times { |round| ask_question @tests[round] }
-    display_score
-  end
-
-  # Run a given test
-  def ask_question(test)
+  # Get score based on user input to test
+  def get_score_for(test)
     print test[:question] + "\n> "
-    @score += is_answer_correct?(gets, test) ? SCORE_CORRECT : SCORE_INCORRECT
-  end
 
-  # Check if the answer to a test is correct
-  def is_answer_correct?(answer, test)
-    answer.chomp.downcase == test[:answer].downcase
-  end
-
-  # Display the score to a game
-  def display_score
-    puts @score >= 0 ? "Score: #{@score}!" : "You've lost. Try again."
+    if gets.chomp.downcase == test[:answer].downcase
+      SCORE_CORRECT
+    else
+      SCORE_INCORRECT
+    end
   end
 end
